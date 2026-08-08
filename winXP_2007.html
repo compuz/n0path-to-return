@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мой 2007</title>
+    <!-- Подключаем тему Windows XP -->
+    <link rel="stylesheet" href="https://unpkg.com/xp.css" />
+    <style>
+        body {
+            background: teal; /* Фон как в XP */
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window" style="margin: 32px; width: 300px;">
+        <div class="title-bar">
+            <div class="title-bar-text">Выбор пункта</div>
+        </div>
+        <div class="window-body">
+            <p>Выберите период:</p>
+            <!-- Элемент выпадающего списка -->
+            <select id="mySelect">
+                <option value="0">-- 2007 --</option>
+                <option value="1">1998</option>
+                <option value="2">2000</option>
+                <option value="3">2010</option>
+            </select>
+            <p style="margin-top: 10px; font-size: 12px; color: #555;">
+                Никто, никогда не вернётся в 2007-й...
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const select = document.getElementById('mySelect');
+        // Находим первый option (индекс 0)
+        const firstOption = select.options[0];
+
+        select.addEventListener('change', function() {
+            // Если выбрано значение не первого пункта (индекс не 0)
+            if (this.selectedIndex !== 0) {
+                firstOption.disabled = true;
+            } else {
+                // Если вдруг пользователь как-то выбрал первый пункт снова,
+                // включаем его обратно (хотя это маловероятно, так как он disabled)
+                // Но для логики: если выбран первый, убираем disabled
+                firstOption.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
