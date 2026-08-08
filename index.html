@@ -33,23 +33,33 @@
             </p>
         </div>
     </div>
-
+    <audio id="myAudio" src="WinXP_startup.mp3"></audio>
     <script>
         const select = document.getElementById('mySelect');
-        // Находим первый option (индекс 0)
         const firstOption = select.options[0];
+        const audio = document.getElementById('myAudio');
 
+        // --- Логика для выпадающего списка ---
         select.addEventListener('change', function() {
-            // Если выбрано значение не первого пункта (индекс не 0)
             if (this.selectedIndex !== 0) {
                 firstOption.disabled = true;
             } else {
-                // Если вдруг пользователь как-то выбрал первый пункт снова,
-                // включаем его обратно (хотя это маловероятно, так как он disabled)
-                // Но для логики: если выбран первый, убираем disabled
                 firstOption.disabled = false;
             }
         });
+
+        // --- Логика для музыки ---
+        // Пробуем воспроизвести при первом клике по странице (обход автоблокировки)
+        document.addEventListener('click', function playAudio() {
+            audio.play().catch(function(error) {
+                console.log('Автовоспроизведение заблокировано. Нажмите на страницу.');
+            });
+            // Удаляем обработчик после первого клика, чтобы он не срабатывал повторно
+            document.removeEventListener('click', playAudio);
+        });
+
+        // Альтернативный вариант: попытаться запустить сразу (может не сработать)
+        // audio.play().catch(e => console.log('Нужен клик для воспроизведения'));
     </script>
 </body>
 </html>
